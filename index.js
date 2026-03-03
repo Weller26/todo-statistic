@@ -140,9 +140,37 @@ function GetImportancesArr(todo) {
 }
 
 function ShowTodoByUser(todo) {
+    let users = GetUsersArr(todo);
+    let sortUsers = users.sort(function (a, b) {
+        return a[1].localeCompare(b[1]);
+    });
+    for (const user of sortUsers) {
+        console.log(user[0])
+    }
+}
 
+function GetUsersArr(todo) {
+    let result = [];
+    for (const todoElem of todo) {
+        let tuple = [todoElem, '']
+        result.push(tuple);
+        let parts = todoElem.split(';');
+        if (parts.length > 1) {
+            let author = parts[0].split('TODO')[1].trim().toLowerCase();
+            result[result.length - 1][1] = author;
+        }
+    }
+    return result;
 }
 
 function ShowTodoByDate(todo) {
-    
+    for (const todoElement of todo) {
+        const parts = todoElement.split(';');
+        if (parts.length > 1) {
+            const todoDate = parts[1].trim();
+            if (todoDate >= date) {
+                console.log(todoElement);
+            }
+        }
+    }
 }
