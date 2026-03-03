@@ -39,7 +39,7 @@ function processCommand(command) {
 
 function getToDo(files) {
     const result = [];
-    const todoRegex = /\/\/\s*todo.*/gi;
+    const todoRegex = /\/\/\s*todo\b.*/gi;
     for (const file of files) {
         const matches = file.match(todoRegex);
         if (matches) {
