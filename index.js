@@ -12,11 +12,7 @@ function getFiles() {
 }
 
 function processCommand(command) {
-<<<<<<< HEAD
-    switch (command.split()[0]) {
-=======
     switch (command.split(' ')[0]) {
->>>>>>> c3a401557eb0146c90012254837e619f0a602995
         case 'exit':
             process.exit(0);
             break;
@@ -27,12 +23,12 @@ function processCommand(command) {
             ShowImportantToDo(todo);
             break;
         case 'user':
-<<<<<<< HEAD
-            ShowUserToDo(todo, command);
-=======
-            ShowUserToDo(files, command.substring(5));
->>>>>>> c3a401557eb0146c90012254837e619f0a602995
+            ShowUserToDo(todo, command.substring(5));
             break;
+        case 'date':
+            ShowDataToDo(todo, command.substring(5));
+            break;
+
         default:
             console.log('wrong command');
             break;
@@ -73,6 +69,18 @@ function ShowUserToDo(todo, username) {
             let author = parts[0].split('TODO')[1].trim().toLowerCase();
             if (author === targetUser) {
                 console.log(todoElem);
+            }
+        }
+    }
+}
+
+function ShowDataToDo(todo, date) {
+    for (const todoElement of todo) {
+        const parts = todoElement.split(';');
+        if (parts.length > 1) {
+            const todoDate = parts[1].trim();
+            if (todoDate >= date) {
+                console.log(todoElement);
             }
         }
     }
