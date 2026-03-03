@@ -2,7 +2,6 @@ const {getAllFilePathsWithExtension, readFile} = require('./fileSystem');
 const {readLine} = require('./console');
 
 const files = getFiles();
-console.log(GetToDo(files))
 console.log('Please, write your command!');
 readLine(processCommand);
 
@@ -16,6 +15,7 @@ function processCommand(command) {
         case 'exit':
             process.exit(0);
             break;
+
         default:
             console.log('wrong command');
             break;
@@ -32,9 +32,10 @@ function GetToDo(files) {
                 if (split[i][j] === '\n') {
                     let todo = '// TODO' + split[i].substring(0, j - 1);
                     result.push(todo);
+                    break;
                 }
             }
         }
     }
-    return result;
+    return result.splice(0, result.length - 2);
 }
