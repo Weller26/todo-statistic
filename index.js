@@ -25,10 +25,11 @@ function processCommand(command) {
         case 'user':
             ShowUserToDo(todo, command.substring(5));
             break;
+        case 'sort':
+            sortTodo(command.substring(5));
         case 'date':
             ShowDataToDo(todo, command.substring(5));
             break;
-
         default:
             console.log('wrong command');
             break;
@@ -84,4 +85,51 @@ function ShowDataToDo(todo, date) {
             }
         }
     }
+}
+
+function GetExclamationMarkCount(todo) {
+    let counter = 0;
+    for (const todoElement of todo) {
+        if (todoElement.includes('!')) {
+            counter++;
+        }
+    }
+}
+
+function sortTodo(key) {
+    switch (key) {
+        case 'importance':
+            ShowTodoByImportance(todo);
+            break;
+        case 'user':
+            ShowTodoByUser(todo);
+            break;
+        case 'date':
+            ShowTodoByDate(todo);
+            break;
+    }
+}
+
+function ShowTodoByImportance(todo) {
+    let importances = GetImportancesArr(todo);
+    let sortImportances = importances.sort(function (a, b) {
+        return b[1] - a[1];
+    });
+    for (const importance of sortImportances) {
+        console.log(todo[importance[0]])
+    }
+}
+
+function GetImportancesArr(todo) {
+    let result = [];
+    for (let i = 0; i < todo.length; i++) {
+        let tuple = [i, 0];
+        result.push(tuple);
+        for (let j = 0; j < todo[i].length; j++) {
+            if (todo[i][j] === '!') {
+                result[i][1]++;
+            }
+        }
+    }
+    return result;
 }
