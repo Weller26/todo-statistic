@@ -2,6 +2,7 @@ const { getAllFilePathsWithExtension, readFile } = require('./fileSystem');
 const { readLine } = require('./console');
 
 const files = getFiles();
+const todo = getToDo(files);
 console.log('Please, write your command!');
 readLine(processCommand);
 
@@ -11,18 +12,18 @@ function getFiles() {
 }
 
 function processCommand(command) {
-    switch (command) {
+    switch (command.split()[0]) {
         case 'exit':
             process.exit(0);
             break;
         case 'show':
-            console.log(GetToDo(files));
+            console.log(todo);
             break;
         case 'important':
-            ShowImportantToDo(files);
+            ShowImportantToDo(todo);
             break;
         case 'user':
-            ShowUserToDo(files, username);
+            ShowUserToDo(todo, command);
             break;
         default:
             console.log('wrong command');
@@ -31,7 +32,7 @@ function processCommand(command) {
 }
 
 // TODO you can do it!
-function GetToDo(files) {
+function getToDo(files) {
     let result = [];
     for (const file of files) {
         let split = file.split('// ' + 'TODO');
@@ -48,8 +49,7 @@ function GetToDo(files) {
     return result;
 }
 
-function ShowImportantToDo(files) {
-    let todo = GetToDo(files);
+function ShowImportantToDo(todo) {
     for (const todoElement of todo) {
         if (todoElement.includes('!')) {
             console.log(todoElement)
@@ -57,17 +57,15 @@ function ShowImportantToDo(files) {
     }
 }
 
-function ShowUserToDo(files, username) {
-    let todos = GetToDo(files);
+function ShowUserToDo(todo, username) {
     let targetUser = username.toLowerCase();
-    for (const todo of todos) {
-        let parts = todo.split(';');
+    for (const todoElem of todo) {
+        let parts = todoElem.split(';');
         if (parts.length > 1) {
             let author = parts[0].split('TODO')[1].trim().toLowerCase();
             if (author === targetUser) {
-                console.log(todo);
+                console.log(todoElem);
             }
         }
     }
 }
-
