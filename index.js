@@ -142,6 +142,9 @@ function GetImportancesArr(todo) {
 function ShowTodoByUser(todo) {
     let users = GetUsersArr(todo);
     let sortUsers = users.sort(function (a, b) {
+        if (!a[1] && !b[1]) return 0;
+        if (!a[1]) return 1;
+        if (!b[1]) return -1;
         return a[1].localeCompare(b[1]);
     });
     for (const user of sortUsers) {
@@ -166,7 +169,10 @@ function GetUsersArr(todo) {
 function ShowTodoByDate(todo) {
     let dates = getDatesArr(todo);
     let sortDates = dates.sort(function (a, b) {
-        return new Date(b[1]) - new Date(a[1]);
+        if (!a[1] && !b[1]) return 0;
+        if (!a[1]) return 1;
+        if (!b[1]) return -1;
+        return b[1].localeCompare(a[1]);
     });
     for (const sortDate of sortDates) {
         console.log(sortDate[0])
