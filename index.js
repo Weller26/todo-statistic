@@ -164,13 +164,25 @@ function GetUsersArr(todo) {
 }
 
 function ShowTodoByDate(todo) {
+    let dates = getDatesArr(todo);
+    let sortDates = dates.sort(function (a, b) {
+        return a[1] < b[1];
+    });
+    for (const sortDate of sortDates) {
+        console.log(sortDate[0])
+    }
+}
+
+function getDatesArr(todo) {
+    let result = [];
     for (const todoElement of todo) {
+        let tuple = [todoElement, '']
+        result.push(tuple);
         const parts = todoElement.split(';');
         if (parts.length > 1) {
             const todoDate = parts[1].trim();
-            if (todoDate >= date) {
-                console.log(todoElement);
-            }
+            result[result.length - 1][1] = todoDate;
         }
     }
+    return result;
 }
