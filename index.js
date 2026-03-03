@@ -21,6 +21,9 @@ function processCommand(command) {
         case 'important':
             ShowImportantToDo(files);
             break;
+        case 'user':
+            ShowUserToDo(files, username);
+            break;
         default:
             console.log('wrong command');
             break;
@@ -53,3 +56,18 @@ function ShowImportantToDo(files) {
         }
     }
 }
+
+function ShowUserToDo(files, username) {
+    let todos = GetToDo(files);
+    let targetUser = username.toLowerCase();
+    for (const todo of todos) {
+        let parts = todo.split(';');
+        if (parts.length > 1) {
+            let author = parts[0].split('TODO')[1].trim().toLowerCase();
+            if (author === targetUser) {
+                console.log(todo);
+            }
+        }
+    }
+}
+
