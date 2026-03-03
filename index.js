@@ -166,7 +166,7 @@ function GetUsersArr(todo) {
 function ShowTodoByDate(todo) {
     let dates = getDatesArr(todo);
     let sortDates = dates.sort(function (a, b) {
-        return a[1] < b[1];
+        return new Date(b[1]) - new Date(a[1]);
     });
     for (const sortDate of sortDates) {
         console.log(sortDate[0])
