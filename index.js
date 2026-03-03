@@ -36,18 +36,14 @@ function processCommand(command) {
 }
 
 // TODO you can do it!
+
 function getToDo(files) {
-    let result = [];
+    const result = [];
+    const todoRegex = /\/\/\s*todo.*/gi;
     for (const file of files) {
-        let split = file.split('// ' + 'TODO');
-        for (let i = 1; i < split.length; i++) {
-            for (let j = 0; j < split[i].length; j++) {
-                if (split[i][j] === '\n') {
-                    let todo = '// ' + 'TODO' + split[i].substring(0, j - 1);
-                    result.push(todo);
-                    break;
-                }
-            }
+        const matches = file.match(todoRegex);
+        if (matches) {
+            result.push(...matches);
         }
     }
     return result;
@@ -85,3 +81,20 @@ function ShowDataToDo(todo, date) {
         }
     }
 }
+
+function CheckImportant(todo) {
+    for (const todoElement of todo) {
+        if (todoElement.includes('!')) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+function ShowTable(todo) {
+}
+
+
+
