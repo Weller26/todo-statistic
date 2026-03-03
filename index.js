@@ -12,7 +12,11 @@ function getFiles() {
 }
 
 function processCommand(command) {
+<<<<<<< HEAD
     switch (command.split()[0]) {
+=======
+    switch (command.split(' ')[0]) {
+>>>>>>> c3a401557eb0146c90012254837e619f0a602995
         case 'exit':
             process.exit(0);
             break;
@@ -23,7 +27,11 @@ function processCommand(command) {
             ShowImportantToDo(todo);
             break;
         case 'user':
+<<<<<<< HEAD
             ShowUserToDo(todo, command);
+=======
+            ShowUserToDo(files, command.substring(5));
+>>>>>>> c3a401557eb0146c90012254837e619f0a602995
             break;
         default:
             console.log('wrong command');
