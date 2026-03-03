@@ -1,5 +1,5 @@
-const {getAllFilePathsWithExtension, readFile} = require('./fileSystem');
-const {readLine} = require('./console');
+const { getAllFilePathsWithExtension, readFile } = require('./fileSystem');
+const { readLine } = require('./console');
 
 const files = getFiles();
 console.log('Please, write your command!');
@@ -14,6 +14,9 @@ function processCommand(command) {
     switch (command) {
         case 'exit':
             process.exit(0);
+            break;
+        case 'show':
+            console.log(GetToDo(files));
             break;
 
         default:
