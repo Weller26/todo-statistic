@@ -18,7 +18,9 @@ function processCommand(command) {
         case 'show':
             console.log(GetToDo(files));
             break;
-
+        case 'important':
+            ShowImportantToDo(files);
+            break;
         default:
             console.log('wrong command');
             break;
@@ -29,16 +31,25 @@ function processCommand(command) {
 function GetToDo(files) {
     let result = [];
     for (const file of files) {
-        let split = file.split('// TODO');
+        let split = file.split('// ' + 'TODO');
         for (let i = 1; i < split.length; i++) {
             for (let j = 0; j < split[i].length; j++) {
                 if (split[i][j] === '\n') {
-                    let todo = '// TODO' + split[i].substring(0, j - 1);
+                    let todo = '// ' + 'TODO' + split[i].substring(0, j - 1);
                     result.push(todo);
                     break;
                 }
             }
         }
     }
-    return result.splice(0, result.length - 2);
+    return result;
+}
+
+function ShowImportantToDo(files) {
+    let todo = GetToDo(files);
+    for (const todoElement of todo) {
+        if (todoElement.includes('!')) {
+            console.log(todoElement)
+        }
+    }
 }
