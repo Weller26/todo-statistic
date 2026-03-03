@@ -11,7 +11,7 @@ function getFiles() {
 }
 
 function processCommand(command) {
-    switch (command) {
+    switch (command.split(' ')[0]) {
         case 'exit':
             process.exit(0);
             break;
@@ -22,7 +22,7 @@ function processCommand(command) {
             ShowImportantToDo(files);
             break;
         case 'user':
-            ShowUserToDo(files, username);
+            ShowUserToDo(files, command.substring(5));
             break;
         default:
             console.log('wrong command');
